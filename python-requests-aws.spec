@@ -1,6 +1,4 @@
-%global dist_raw %(%{__grep} -oP "release \\K[0-9]+\\.[0-9]+" /etc/system-release | tr -d ".")
-
-%if 0%{?el8}
+%if 0%{?el8} || 0%{?redos}
 %global el_python3_pkgversion 3
 %else
 %global el_python3_pkgversion 36
@@ -12,7 +10,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.1.5
-Release:        3.CROC2%{?dist}
+Release:        3.CROC3%{?dist}
 Summary:        %{sum}
 
 License:        BSD licence
@@ -28,6 +26,9 @@ Summary:        %{sum}
 Requires:       python%{el_python3_pkgversion}-requests
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+%if 0%{?redos}
+Provides:       python3.8dist(%{pkgname})
+%endif
 
 %description -n python%{python3_pkgversion}-%{pkgname}
 %{descr}
