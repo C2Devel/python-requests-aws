@@ -10,7 +10,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.1.5
-Release:        3.CROC3%{?dist}
+Release:        3.ROCKIT4%{?dist}
 Summary:        %{sum}
 
 License:        BSD licence
