@@ -4,7 +4,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.1.5
-Release:        3.ROCKIT5%{?dist}
+Release:        3.ROCKIT6%{?dist}
 Summary:        %{sum}
 
 License:        BSD licence
@@ -40,7 +40,9 @@ sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
 
 %{py3_install}
 
+%if 0%{?rhel} < 10
 find %buildroot/ -name '*.egg-info' -exec rm -rf -- '{}' '+'
+%endif
 
 %files -n python%{python3_pkgversion}-%{pkgname}
 %defattr(-,root,root,-)
@@ -48,6 +50,12 @@ find %buildroot/ -name '*.egg-info' -exec rm -rf -- '{}' '+'
 %{python3_sitelib}/*
 
 %changelog
+* Tue Aug 18 2026 Grigory Kulagin <grkulagin@croc.ru> - 0.1.5-3.ROCKIT6
+- Keep egg-info in the package on el10+ so the automatic dependency
+  generator emits python3.Xdist(requests-aws) provides (fixes
+  unresolvable python3.12dist(requests-aws) dependency of
+  python3-rgwclient on el10)
+
 * Fri Feb 06 2026 Evgenii Pozdniakov <epozdniakov@k2.cloud> - 0.1.5-3.ROCKIT5
 - Remove el7 support
 
